@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from "./core/layout/layout.component";
-import { ListItemsComponent } from "./pages/list-items/list-items.component";
-import { ListAddComponent } from "./pages/list-add/list-add.component";
+import { ListItemsComponent } from "./features/todo/pages/list-items/list-items.component";
+import { ListAddComponent } from "./features/todo/pages/list-add/list-add.component";
 
 export const routes: Routes = [
   {
@@ -10,11 +10,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'list',
-        loadComponent: () => ListItemsComponent,
-      },
-      {
-        path: 'add',
-        loadComponent: () => ListAddComponent,
+        loadChildren: () => import('./features/todo/todo.routes').then(m => m.routes),
       },
       {
         path: '**',

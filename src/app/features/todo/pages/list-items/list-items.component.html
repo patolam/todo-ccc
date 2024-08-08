@@ -1,0 +1,13 @@
+<div>
+  <button type="button" (click)="store.updateFilledOnly(!store.filledOnly())">
+    {{ store.filledOnly() ? 'Filter' : 'Unfilter' }}
+  </button>
+</div>
+
+<ul>
+  @for (item of store.filledTodos(); track item.id) {
+    <li>
+      {{ item.date }} {{ item.location }} {{ item.content }}
+    </li>
+  }
+</ul>
