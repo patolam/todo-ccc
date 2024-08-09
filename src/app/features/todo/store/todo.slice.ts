@@ -1,28 +1,11 @@
 import { patchState, signalStore, withComputed, withMethods, withState } from "@ngrx/signals";
 import { Todo } from "../models/todo.model";
-import { computed } from "@angular/core";
-import { differenceInCalendarDays, format, parse } from "date-fns";
-
-const mockedTodos: Todo[] = [
-  {
-    id: 0,
-    date: format(new Date(), 'yyyy-MM-dd'),
-    content: 'Lorem ipsum',
-    location: 'Warszawa, PL',
-  },
-  {
-    id: 1,
-    date: '2025-08-08',
-    content: 'Sit dolor amet',
-    location: 'Kraków, PL',
-  },
-  {
-    id: 2,
-    date: format(new Date(), 'yyyy-MM-dd'),
-    content: '',
-    location: 'Kraków, PL',
-  }
-]
+import { computed, inject } from "@angular/core";
+import { differenceInCalendarDays, parse } from "date-fns";
+import { rxMethod } from "@ngrx/signals/rxjs-interop";
+import { map, pipe, switchMap } from "rxjs";
+import { TodoService } from "../services/todo.service";
+import { tapResponse } from "@ngrx/operators";
 
 type TodoState = {
   todos: Todo[];
@@ -30,13 +13,15 @@ type TodoState = {
 };
 
 const initialState: TodoState = {
-  todos: mockedTodos,
+  todos: [],
   filledOnly: false,
 };
 
 const filledFilter = (item: Todo) => !!item.content && !!item.date && !!item.location;
 
-const daysDifference = (item: Todo) => differenceInCalendarDays(new Date(), parse(item.date, 'yyyy-MM-dd', new Date()));
+const daysDifference = (item: Todo) => differenceInCalendarDays(
+  new Date(), parse(item.date ?? '1970-01-01', 'yyyy-MM-dd', new Date())
+);
 
 export const TodoStore = signalStore(
   withState(initialState),
@@ -47,11 +32,29 @@ export const TodoStore = signalStore(
     }),
     futureTodosCount: computed(() => {
       return todos().reduce((count, item) => daysDifference(item) < 0 ? count + 1 : count, 0)
-    })
+    }),
   })),
-  withMethods((store) => ({
+  withMethods((store, todoService = inject(TodoService)) => ({
     updateFilledOnly(filledOnly: boolean): void {
       patchState(store, { filledOnly });
     },
+    loadTodosList: rxMethod<void>(
+      pipe(
+        switchMap(() => todoService.loadTodosList().pipe(
+          switchMap((todos: Todo[]) => todoService.getLocationInfo(todos?.[0]).pipe(
+              map((extras) => {
+                todos[0].extras = { ...extras };
+
+                return todos;
+              }),
+            )
+          ),
+          tapResponse({
+            next: (todos) => patchState(store, { todos }),
+            error: (err) => console.error(err),
+          }),
+        ))
+      )
+    ),
   })),
 );

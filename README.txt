@@ -11,12 +11,11 @@ Możesz użyć dodanych bibliotek oraz własnych i wykorzystać je do logiki ora
 * 4. Dodaj predefiniowaną listę przykładowych zadań
 * 5. W komponencie list dodaj wyświetlanie listy zadań których parametr display ma wartość true.
 * 6. Dodaj na górze listy filtr tekstowy który będzie ustawiać display na false dla zadań w których pola date, location i content nie zawierają wpisanej wartości.
-7. Dodaj w komponencie add formularz który będzie dodawał kolejne zadanie do listy zadań.
+* 7. Dodaj w komponencie add formularz który będzie dodawał kolejne zadanie do listy zadań.
 * 8. Dodaj przy ikonie dzwonka w menu sumaryczną liczbę zadań na dziś i przyszłość
-9. Przy wyświetlaniu komponentu list dodaj funkcjonalność która będzie dla PIERWSZEGO wyświetlanego zadania odpytywać api pod adresem
+* 9. Przy wyświetlaniu komponentu list dodaj funkcjonalność która będzie dla PIERWSZEGO wyświetlanego zadania odpytywać api pod adresem
 	https://geocoding-api.open-meteo.com/v1/search?name=LOCATION&count=10&language=pl&format=json
 	Z location w parametrze name i dodawać do obiektu zadania pobrane latitude i longitude z pierwszego wyniku zapytania lub wyświetlać informację o nieudanym odnalezieniu lokalizacji.
-10. Dla powyższego zadania dodaj wykonywanie dodatkowo zapytania do api pod adresem
+* 10. Dla powyższego zadania dodaj wykonywanie dodatkowo zapytania do api pod adresem
 	https://api.open-meteo.com/v1/forecast?latitude=LATITUDE&longitude=LONGITUDE&current=temperature_2m
 	Wstawiając odpowiednio parametry latitude i longitude. Zwrócony parametr temperature_2m zapisz do obiektu zadania i wyświetl na liście zadań.
-

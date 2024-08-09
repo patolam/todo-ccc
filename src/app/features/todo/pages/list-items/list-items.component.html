@@ -1,13 +1,32 @@
 <div>
-  <button type="button" (click)="store.updateFilledOnly(!store.filledOnly())">
-    {{ store.filledOnly() ? 'Filter' : 'Unfilter' }}
+  <button type="button" class="p-3 rounded text-white bg-gray-800"
+          (click)="store.updateFilledOnly(!store.filledOnly())">
+    {{ store.filledOnly() ? 'Show all' : 'Show fulfilled only' }}
   </button>
 </div>
 
-<ul>
+<ul class="flex flex-col gap-2 mt-4">
   @for (item of store.filledTodos(); track item.id) {
-    <li>
-      {{ item.date }} {{ item.location }} {{ item.content }}
+    <li class="border border-1 rounded p-4">
+      <div class="flex justify-between text-xs mb-2">
+        <span>{{ item.date ?? '-' }}</span>
+
+        <div>
+          <span>{{ item.location ?? '-' }}</span>
+
+          @if (item.extras) {
+            @if (item.extras.error) {
+              <span>{{ item.extras.error }}</span>
+            } @else {
+              <span>
+              ({{ item.extras.longitude }}, {{ item.extras.latitude }}), {{ item.extras.temperature }} °C
+            </span>
+            }
+          }
+        </div>
+      </div>
+
+      <div>{{ item.content ?? '-' }}</div>
     </li>
   }
 </ul>

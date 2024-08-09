@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { TodoStore } from "../../store/todo.slice";
 
 @Component({
@@ -10,6 +10,10 @@ import { TodoStore } from "../../store/todo.slice";
   providers: [TodoStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ListItemsComponent {
-  protected readonly store = inject(TodoStore);
+export class ListItemsComponent implements OnInit {
+  readonly store = inject(TodoStore);
+
+  ngOnInit() {
+    this.store.loadTodosList();
+  }
 }
