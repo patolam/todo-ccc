@@ -1,1 +1,52 @@
-<p>list-add works!</p>
+<form [formGroup]="form" (ngSubmit)="saveTask()" class="w-full max-w-lg">
+  <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-location">
+        Location
+      </label>
+      <input
+        formControlName="location"
+        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+        id="grid-location" type="text" placeholder="Warszawa">
+
+      @if (form.controls.location.errors?.['maxlength']) {
+        <p class="text-red-500 text-xs italic">Text is too long</p>
+      }
+    </div>
+    <div class="w-full md:w-1/2 px-3">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-date">
+        Task date
+      </label>
+      <input
+        formControlName="date"
+        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+        id="grid-date" type="text" placeholder="YYYY-MM-DD">
+
+      @if (form.controls.date.errors?.['pattern']) {
+        <p class="text-red-500 text-xs italic">Wrong date pattern</p>
+      }
+    </div>
+  </div>
+  <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="w-full px-3">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-content">
+        Content
+      </label>
+      <textarea
+        rows="5"
+        formControlName="content"
+        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+        id="grid-content" placeholder="My task to do"></textarea>
+
+      @if (form.controls.content.errors?.['maxlength']) {
+        <p class="text-red-500 text-xs italic">Text is too long</p>
+      } @else {
+        <p class="text-gray-600 text-xs italic">Description of your todo task</p>
+      }
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="form.invalid" class="p-3 rounded text-white bg-gray-800 disabled:bg-gray-400">
+    Save task
+  </button>
+</form>

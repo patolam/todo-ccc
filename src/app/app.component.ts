@@ -8,7 +8,7 @@ import { faGhost } from '@fortawesome/free-solid-svg-icons';
   standalone: true,
   imports: [RouterOutlet, FontAwesomeModule],
   template: '<router-outlet/>',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   faGhost = faGhost;

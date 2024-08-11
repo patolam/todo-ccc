@@ -5,7 +5,7 @@ Jest to szablon dla aplikacji ToDoList. Wykonaj w miarę możliwości jak najwi�
 Tam gdzie nie jest wyszczególniony dokładny sposób realizacji wykorzystaj najlepsze znane metody, aby aplikacja była prosta i optymalna wydajnościowo.
 Możesz użyć dodanych bibliotek oraz własnych i wykorzystać je do logiki oraz wyglądu aplikacji.
 
-1. Zrób, aby menu w wersji mobilnej ukrywało się i wyświetlało po naciśnięciu przycisku "hamburger".
+* 1. Zrób, aby menu w wersji mobilnej ukrywało się i wyświetlało po naciśnięciu przycisku "hamburger".
 * 2. Dodaj komponenty list i add, dodaj je do routera aplikacji z możliwością ich przełączania z menu.
 * 3. Dodaj do aplikacji magazyn danych na listę to-do która będzie zawierać listę zadań składających się z pól date, location, content, display.
 * 4. Dodaj predefiniowaną listę przykładowych zadań

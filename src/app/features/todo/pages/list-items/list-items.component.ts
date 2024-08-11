@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
-import { TodoStore } from "../../store/todo.slice";
+import { TodoStore } from "../../store/todo.store";
 
 @Component({
   selector: 'app-list-items',
@@ -7,13 +7,12 @@ import { TodoStore } from "../../store/todo.slice";
   imports: [],
   templateUrl: './list-items.component.html',
   styleUrl: './list-items.component.scss',
-  providers: [TodoStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListItemsComponent implements OnInit {
-  readonly store = inject(TodoStore);
+  readonly todoStore = inject(TodoStore);
 
   ngOnInit() {
-    this.store.loadTodosList();
+    this.todoStore.loadLocationInfo(this.todoStore.todos())
   }
 }

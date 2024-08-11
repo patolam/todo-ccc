@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { faGhost } from "@fortawesome/free-solid-svg-icons";
 import { FaIconComponent } from "@fortawesome/angular-fontawesome";
 import { RouterLink, RouterOutlet } from "@angular/router";
-import { TodoStore } from "../../features/todo/store/todo.slice";
+import { TodoStore } from "../../features/todo/store/todo.store";
 
 @Component({
   selector: 'app-layout',
@@ -14,10 +14,11 @@ import { TodoStore } from "../../features/todo/store/todo.slice";
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
-  providers: [TodoStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutComponent {
-  protected readonly store = inject(TodoStore);
+  protected readonly todoStore = inject(TodoStore);
   protected readonly faGhost = faGhost;
+
+  menuOpen = signal(false);
 }

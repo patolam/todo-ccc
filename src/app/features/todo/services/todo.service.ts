@@ -5,7 +5,7 @@ import { catchError, map, Observable, of, switchMap } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { TodoLocationInfoDto, TodoLocationResultDto, TodoLocationTemperatureDto } from "../models/todo.dto";
 
-const mockedTodos: Todo[] = [
+export const mockedTodos: Todo[] = [
   {
     id: 0,
     date: format(new Date(), 'yyyy-MM-dd'),
@@ -38,14 +38,14 @@ const mockedTodos: Todo[] = [
 export class TodoService {
   readonly httpClient = inject(HttpClient);
 
-  loadTodosList(): Observable<Todo[]> {
+  getTodosList(): Observable<Todo[]> {
     return of(mockedTodos);
   }
 
   getLocationInfo({ location }: Todo): Observable<TodoExtras> {
     return this.httpClient.get<TodoLocationInfoDto>(`https://geocoding-api.open-meteo.com/v1/search?name=${ location }&count=10&language=pl&format=json`).pipe(
       switchMap((locationInfo => {
-        const { latitude, longitude } = locationInfo.results![0];
+        const { latitude, longitude } = locationInfo.results[0];
 
         return this.getLocationTemperature({ latitude, longitude }).pipe(
           map(temperature => {

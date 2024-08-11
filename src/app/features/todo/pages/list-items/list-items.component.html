@@ -1,12 +1,13 @@
-<div>
-  <button type="button" class="p-3 rounded text-white bg-gray-800"
-          (click)="store.updateFilledOnly(!store.filledOnly())">
-    {{ store.filledOnly() ? 'Show all' : 'Show fulfilled only' }}
-  </button>
-</div>
+<button
+  type="button"
+  class="p-3 rounded text-white bg-gray-800"
+  (click)="todoStore.updateFilledOnly(!todoStore.filledOnly())"
+>
+  {{ todoStore.filledOnly() ? 'Show all' : 'Show fulfilled only' }}
+</button>
 
 <ul class="flex flex-col gap-2 mt-4">
-  @for (item of store.filledTodos(); track item.id) {
+  @for (item of todoStore.filledTodos(); track item.id) {
     <li class="border border-1 rounded p-4">
       <div class="flex justify-between text-xs mb-2">
         <span>{{ item.date ?? '-' }}</span>

@@ -1,6 +1,6 @@
 export interface TodoLocationInfoDto {
   generationtime_ms: number;
-  results?: TodoLocationResultDto[];
+  results: TodoLocationResultDto[];
 }
 
 export interface TodoLocationResultDto {
