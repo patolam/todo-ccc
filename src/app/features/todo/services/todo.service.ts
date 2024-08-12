@@ -10,7 +10,7 @@ export const mockedTodos: Todo[] = [
     id: 0,
     date: format(new Date(), 'yyyy-MM-dd'),
     content: 'Lorem ipsum',
-    location: 'Warszawa',
+    location: 'Katowice',
   },
   {
     id: 1,

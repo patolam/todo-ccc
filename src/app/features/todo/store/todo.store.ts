@@ -67,9 +67,9 @@ export const TodoStore = signalStore(
     ),
   })),
   withHooks({
-    onInit({ loadTodosList }) {
+    onInit({ loadTodosList, loadLocationInfo, todos }) {
       loadTodosList();
-      console.log('init')
+      loadLocationInfo(todos);
     },
   }),
 );
